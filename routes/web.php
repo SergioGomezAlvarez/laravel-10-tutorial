@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Profile\AvatarController;
 use App\Http\Controllers\ProfileController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
@@ -17,47 +18,7 @@ use Illuminate\Support\Facades\DB;
 */
 
 Route::get('/', function () {
-    //    fetch all users
-    //    $users = DB::select("select * from users");
-    //    $users = DB::table('users')->where('id', 1)->first();
-    $user = User::find(17);
-
-
-    //    create new user
-    //    $user = DB::insert('insert into users (name, email, password) values (?, ?, ?)', [
-    //    'Kenny',
-    //    'kenny31@bitfumess.com',
-    //    'password',
-    //    ]);
-    //    $user = DB::table('users')->insert([
-    //    'name' => 'Kenny',
-    //    'email' => 'kenny42@bbitfumes.com',
-    //    'password' => 'password'
-    //    ]);
-    //    $user = User::create([
-    //    'name' => 'Kenny',
-    //    'email' => 'kenny@bitfumestwee.com',
-    //    'password' => 'password',
-    //    ]);
-
-    //    update a user
-    //    $user = DB::update("update users set email=? where id=?", [
-    //    'plugz@plugz.com',
-    //    2,
-    //    ]);
-    //    $user = DB::table('users')->where('id', 3)->update(['email' => 'dyvex@bitfumes.com']);
-    //    $user = User::find(4);
-    //    $user->update([
-    //    'email' => 'kenny@bitfumes.com'
-    //    ]);
-
-
-    //    delete a user
-    //    $user = DB::delete("delete from users where id=2");
-    //    $user = DB::table('users')->where('id', 3)->delete();
-    //    $user = User::find(4);
-    //    $user->delete();
-    dd($user->name);
+   return view('welcome');
 });
 
 Route::get('/dashboard', function () {
@@ -67,6 +28,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/avatar', [AvatarController::class, 'update'])->name('profile.avatar');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
